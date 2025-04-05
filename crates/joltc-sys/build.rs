@@ -83,9 +83,9 @@ fn build_joltc() {
 fn build_flags() -> Vec<(&'static str, &'static str)> {
     let mut flags = Vec::new();
 
-    // Force the debug renderer on. In the future, we might want to tie this to
-    // a crate feature.
-    flags.push(("JPH_DEBUG_RENDERER", "ON"));
+    if cfg!(feature = "debug-renderer") {
+        flags.push(("JPH_DEBUG_RENDERER", "ON"));
+    }
 
     // It's important that these flags are never out of sync for Jolt and JoltC.
     if cfg!(feature = "double-precision") {
